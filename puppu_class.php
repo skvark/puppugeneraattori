@@ -114,29 +114,15 @@ $vari = $this->varit;
 
 // haetaan tietokannasta satunnaisarrayn määrittämien id:n arvojen mukaiset osaset, tauluja on 4 kpl
 
-if ($varit == false) {
-
 for ($i = 0; $i < 4; $i++) {
 
 $row = $this->haku($a[$i], $gen[$i]);
 
-echo "$row[1] ";
+if ($varit == false) { echo "$row[1] "; }
+
+elseif ($varit == true) { echo "<span style=\"color: $vari[$i]\">$row[1] </span>"; }
 
 	}
-}
-
-// värikoodaa virkkeen osat
-elseif ($varit == true) {	
-				
-for ($i = 0; $i < 4; $i++) {
-
-$row = $this->haku($a[$i], $gen[$i]);
-
-echo "<span style=\"color: $vari[$i]\">$row[1] </span>";
-
-		}
-	}
-
 }
 		
 // luo kappaleen määritetyllä virkemäärällä ($lkm)
