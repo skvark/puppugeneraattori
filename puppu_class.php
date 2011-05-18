@@ -50,7 +50,7 @@ public $limit = array(6, 6);
 				(SELECT COUNT(id) AS countc FROM $a[2]) AS c,
 				(SELECT COUNT(id) AS countd FROM $a[3]) AS d";
 					
-		$result = mysql_query($query) or die(mysql_error());
+		$result = mysql_query($query) or die('Virhe mysql-haussa.');
 		$rivit = mysql_fetch_array($result);
 
 		if ($rivit[counta] == $rivit[countb] && $rivit[countb] == $rivit[countc] && $rivit[countc] == $rivit[countd]) 
@@ -69,8 +69,8 @@ public $limit = array(6, 6);
 	
 public function info() {
 
-echo "Rivien määrä: $this-yht";
-echo "Erilaisten virkkeiden määrä: $this->yht";
+echo "Rivien määrä: $this->yht";
+echo "Erilaisten virkkeiden määrä: $this->total";
 
 }
 
