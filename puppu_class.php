@@ -10,14 +10,14 @@
  *
  *	$obj = new puppu();
  *
- *	Virke
- *	echo $obj->virke();
+ *	Virke (värit)
+ *	echo $obj->virke(false);
  *
- *	Kappale
- *	echo $obj->kappale(5);
+ *	Kappale (virkkeiden määrä, värit)
+ *	echo $obj->kappale(5, false);
  *
- *  Kokonainen teksti (kappaleet, virkkeet per kappale, satunnaista)
- *	echo $obj->teksti(3,4,'true'/'false');
+ *  Kokonainen teksti (kappaleet, virkkeet per kappale, satunnaista, värit)
+ *	echo $obj->teksti(3,4,true,false);
  *
  * @author     Olli-Pekka Heinisuo <http://unknownpixels.com> <o-p@unknownpixels.com>
  * @version    0.7

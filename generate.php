@@ -1,10 +1,8 @@
 <?php
 
-// käyttäjän lähettämä data on aina tarkistettava (tässä tapauksessa mysql_real_escape_string)
-
 $radio = $_POST['radio'];
-$virkkeet = mysql_real_escape_string($_POST['virkkeet']);
-$kappaleet = mysql_real_escape_string($_POST['kappaleet']);
+$virkkeet = $_POST['virkkeet'];
+$kappaleet = $_POST['kappaleet'];
 $random = $_POST['random'];
 $varitys = $_POST['varit'];
 
@@ -19,7 +17,7 @@ echo $virke->virke($varitys);
 
 }
 
-// ja jälleen turvallisuuden takia tehdään toinen tarkistus (is_numeric)
+// turvallisuuden takia (is_numeric)
 
 elseif ($radio == "kappale" && is_numeric($virkkeet)) {
 
