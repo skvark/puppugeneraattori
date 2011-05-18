@@ -78,7 +78,7 @@ echo "Erilaisten virkkeiden määrä: $this->yht";
 
 public function haku($taulu, $id) {
 
-$query = "SELECT id, text, value FROM $taulu WHERE id=$id";
+$query = "SELECT id, text FROM $taulu WHERE id=$id";
 $result = mysql_query($query) or die("Virhe.");
 $row = mysql_fetch_array($result, MYSQL_NUM);
 return $row;
