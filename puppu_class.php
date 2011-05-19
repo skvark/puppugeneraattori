@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  *	Puppugeneraattori
  *
  *	Toimintaperiaatteesta osoitteessa http://unknownpixels.com/blogi.php?kategoria=ohjelmointi&id=113
@@ -19,8 +19,9 @@
  *	Kokonainen teksti (kappaleet, virkkeet per kappale, satunnaista, värit)
  *	echo $obj->teksti(3,4,true,false);
  *
- * @author     Olli-Pekka Heinisuo <http://unknownpixels.com> <o-p@unknownpixels.com>
- * @version    0.7
+ *	@author     Olli-Pekka Heinisuo <http://unknownpixels.com> <o-p@unknownpixels.com>
+ *	@version    0.7
+ *
  */
 
 class puppu {
