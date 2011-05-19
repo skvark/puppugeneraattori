@@ -16,7 +16,7 @@
  *	Kappale (virkkeiden määrä, värit)
  *	echo $obj->kappale(5, false);
  *
- *  Kokonainen teksti (kappaleet, virkkeet per kappale, satunnaista, värit)
+ *	Kokonainen teksti (kappaleet, virkkeet per kappale, satunnaista, värit)
  *	echo $obj->teksti(3,4,true,false);
  *
  * @author     Olli-Pekka Heinisuo <http://unknownpixels.com> <o-p@unknownpixels.com>
@@ -182,7 +182,7 @@ else { echo "Virkkeiden lukumäärä liian suuri."; }
 	
 }
 	
-// kokonainen teksti, (kappaleiden lukumäärä,virkkeiden lukumäärä kappaleessa, random true/false)
+// kokonainen teksti, (kappaleiden lukumäärä,virkkeiden lukumäärä kappaleessa, random, värit)
 	
 public function teksti($kpl, $lkm = 4, $random = false, $varit = false) {
 
