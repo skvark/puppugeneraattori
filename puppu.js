@@ -21,10 +21,10 @@ var kappaleet = $("#kappaleet").val();
 var random = $("input:checkbox[name=checkbox]:checked").val();
 var varit = $("input:checkbox[name=checkboxa]:checked").val();
 var dataString = 'radio='+ radio + '&virkkeet=' + virkkeet + '&kappaleet=' + kappaleet + '&random=' + random + '&varit=' + varit; 
-// alert (dataString);
+// alert (dataString); for debugging
 $.ajax({  
   type: "POST",
-  url: "generoi.php",
+  url: "generate.php",
   dataType: "html",
   data: dataString,
   success: function(response) {
