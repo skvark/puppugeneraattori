@@ -4,10 +4,13 @@
  *
  *	Toimintaperiaatteesta osoitteessa http://unknownpixels.com/blogi.php?kategoria=ohjelmointi&id=113
  *
- *	Vaatii toimiakseen neljä eri taulua tietokantaan. Tietokantaan yhdistämiset hoidettava itse.
+ *	Vaatii toimiakseen neljä eri taulua tietokantaan, joka on nimetty muodostettavan pupun mukaan (esim. politiikka tai tekniikka). 
+ *	Tietokantaan yhdistämiset hoidettava itse.
  *
  * 	Esimerkkejä
- *
+ *	
+ *	Uusi olio, aihe jos tarvetta (default politiikka)
+ *		
  *	$obj = new puppu();
  *
  *	Virke (värit)
@@ -38,12 +41,13 @@ public $varit = array(0 => "#5894b3", 1 => "#b36558", 2 => "#6db358",  3 => "#d8
 // virkkeiden määrän sekä kappaleiden määrän maksimit
 public $limit = array(6, 6);
 
-	function __construct() 
+	function __construct($aihe = "politiikka")
 	
 	{
 		$a = $this->a;
 		
 		// tarkistetaan, että kaikissa tauluissa sama määrä rivejä
+		mysql_select_db($aihe);
 		
 		$query = "SELECT counta, countb, countc, countd FROM
 				(SELECT COUNT(id) AS counta FROM $a[0]) AS a,
