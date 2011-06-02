@@ -19,15 +19,15 @@
  *	Kappale (virkkeiden määrä, värit)
  *	echo $obj->kappale(5, false);
  *
- *	Kokonainen teksti (kappaleet, virkkeet per kappale, satunnaista, värit)
- *	echo $obj->teksti(3,4,true,false);
+ *	Kokonainen teksti (kappaleet, satunnaista, värit)
+ *	echo $obj->teksti(3,true,false);
  *
  *	@author     Olli-Pekka Heinisuo <http://unknownpixels.com> <o-p@unknownpixels.com>
- *	@version    0.7
+ *	@version    0.8
  *
  */
-
-class puppu {
+ 
+class Puppu {
 
 // satunnaisarrayn alustus
 public $gen = array(1 => '', 2 => '', 3 => '',  4 => '');
@@ -38,13 +38,16 @@ public $a = array(0 => 'puhuttelu', 1 => 'subjekti', 2 => 'predikaatti',  3 => '
 // värikoodaus tekstille
 public $varit = array(0 => "#5894b3", 1 => "#b36558", 2 => "#6db358",  3 => "#d8de70");
 
-// virkkeiden määrän sekä kappaleiden määrän maksimit
+// virkkeiden määrän sekä kappaleiden määrän maksimit, väh. 3,3
 public $limit = array(6, 6);
 
 	function __construct($aihe = "politiikka")
 	
 	{
-		$a = $this->a;
+	
+	$a = $this->a;
+		
+	try {
 		
 		// tarkistetaan, että kaikissa tauluissa sama määrä rivejä
 		mysql_select_db($aihe);
@@ -55,18 +58,24 @@ public $limit = array(6, 6);
 				(SELECT COUNT(id) AS countc FROM $a[2]) AS c,
 				(SELECT COUNT(id) AS countd FROM $a[3]) AS d";
 					
-		$result = mysql_query($query) or die('Virhe mysql-haussa.');
+		$result = mysql_query($query);
+		if (!$result) {
+		throw new PuppuTekstiException("Ongelma tietokantahaussa.");
+		}
+		else {
 		$rivit = mysql_fetch_array($result);
-
-		if ($rivit[counta] == $rivit[countb] && $rivit[countb] == $rivit[countc] && $rivit[countc] == $rivit[countd]) 
-		{
+		}
+		if ($rivit[counta] == $rivit[countb] && $rivit[countb] == $rivit[countc] && $rivit[countc] == $rivit[countd]) {
 		$this->yht = $rivit[counta];
 		$this->total = pow($rivit[counta], 4);
 		}
-		else 
-		{ 
-		die ("Virhe. Taulujen rivimäärät eivät täsmää: $a[0] = $rivit[0], $a[1] = $rivit[1], $a[2] = $rivit[2], $a[3] = $rivit[3]"); 
+		else { 
+		throw new PuppuTekstiException("Virhe. Taulujen rivimäärät eivät täsmää: $a[0] = $rivit[0], $a[1] = $rivit[1], $a[2] = $rivit[2], $a[3] = $rivit[3]"); 
 		}
+	}
+	catch(PuppuTekstiException $e) {
+	$e -> __toString();
+	}
 
 	}
 	
@@ -83,10 +92,22 @@ echo "Erilaisten virkkeiden määrä: $this->total";
 
 public function haku($taulu, $id) {
 
+try {
 $query = "SELECT id, text FROM $taulu WHERE id=$id";
-$result = mysql_query($query) or die("Virhe.");
+$result = mysql_query($query);
+
+if (!$result) {
+throw new PuppuTeksti("Ongelma tietokantahaussa.");
+}
+
+else {
 $row = mysql_fetch_array($result, MYSQL_NUM);
 return $row;
+}
+}
+catch(PuppuTekstiException $e) {
+$e -> __toString();
+}
 
 }
 
@@ -137,6 +158,8 @@ public function kappale($lkm, $varit = false)
 
 $limit = $this->limit;
 
+try {
+
 if ($lkm <= $limit[0]) {
 
 //Looppi virkkeiden lukumäärän mukaisesti
@@ -183,44 +206,71 @@ $genb = $gen;
 	
 }
 	
-else { echo "Virkkeiden lukumäärä liian suuri."; }
+else { 
+throw new PuppuTekstiException("Kappaleen virkkeiden lukumäärä liian suuri. $lkm"); 
+	}
+} 
+catch(PuppuTekstiException $e) {
+$e -> __toString();
+}
 	
 }
 	
 // kokonainen teksti, (kappaleiden lukumäärä,virkkeiden lukumäärä kappaleessa, random, värit)
 	
-public function teksti($kpl, $lkm = 4, $random = false, $varit = false) {
+public function teksti($kpl, $random = false, $varit = false) {
 
 	$limit = $this->limit;
 	
-	if ($random == true) {
+	try {
+	
+	if ($random == true && $kpl <= $limit[1] && 3 <= $limit[1]) {
 	
 	for ($i = 1; $i < $kpl+1; $i++) {
 	
-	$lkm = rand(3,5);
+	$alaraja = $limit[0]-($limit[0]-2);
+
+	$lkm = rand($alaraja,$limit[0]);
 
 	$kappale = $this->kappale($lkm, $varit);
 	echo "<p>$kappale</p>";
 	
 			}
 	}
-	elseif ($random == false && $lkm <= $limit[1]) {
+	elseif ($random == false && $kpl <= $limit[1] && 3 <= $limit[1]) {
 
 	// Looppi kappaleiden lukumäärän mukaisesti
-
+	
 	for ($i = 1; $i < $kpl+1; $i++) {
 
-	$kappale = $this->kappale($lkm, $varit);
+	$kappale = $this->kappale(4, $varit);
 	echo "<p>$kappale</p>";
 
 			}
 
 	}
-	
-	else { echo "Kappaleiden lukumäärä liian suuri."; }
-		
-	
+	elseif (3 > $limit[1]){ 
+	throw new PuppuTekstiException("Kappaleen virkkeiden alaraja liian pieni.");
 	}
+	else { 
+	throw new PuppuTekstiException("Kappaleiden lukumäärä liian suuri.");
+	}
+	}
+	catch(PuppuTekstiException $e) {
+	$e -> __toString();
+	}
+}
+}
+
+class PuppuTekstiException extends Exception
+{
+    public function __construct($message) {
+        parent::__construct($message, 0);
+    }
+ 
+    public function __toString() {
+        echo('Virhe: ' . parent::getMessage());
+    }
 }
 
 ?>

@@ -10,9 +10,10 @@ include("puppu.php");
 
 if ($varitys == "undefined") { $varitys = false; } else { $varitys = true; }
 
+$virke = new Puppu();
+
 if ($radio == "virke") {
 
-$virke = new puppu();
 echo $virke->virke($varitys);
 
 }
@@ -23,28 +24,28 @@ elseif ($radio == "kappale" && is_numeric($virkkeet)) {
 
 $lkm = $virkkeet;
 
-$virke = new puppu();
-echo $virke->kappale($lkm, $varitys);
+$kappale = $virke->kappale($lkm, $varitys);
+echo $kappale;
 
 }
 
 elseif ($radio == "teksti" && is_numeric($kappaleet)) {
 
 $kpl = $kappaleet;
+$lkm = $virkkeet;
 
 if ($random == "true") {
 
-$virke = new puppu();
-echo $virke->teksti($kpl, 4, true, $varitys);
-
+    $teksti = $virke->teksti($kpl, true, $varitys);
+    echo $teksti;
 	}
 
 elseif ($random == "undefined") {
 
-$virke = new puppu();
-echo $virke->teksti($kpl, 4, false, $varitys);
-
+    $teksti = $virke->teksti($kpl, false, $varitys);
+    echo $teksti;
 	}
+
 }
 
 else {

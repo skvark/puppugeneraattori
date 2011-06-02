@@ -1,4 +1,4 @@
-Puppugeneraattori v 0.7
+Puppugeneraattori v 0.8
 =======================
 
 Tämä on lähinnä olio-ohjelmoinnin harjoittelua varten itselleni tehty luokka, 
