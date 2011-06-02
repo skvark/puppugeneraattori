@@ -97,7 +97,7 @@ $query = "SELECT id, text FROM $taulu WHERE id=$id";
 $result = mysql_query($query);
 
 if (!$result) {
-throw new PuppuTeksti("Ongelma tietokantahaussa.");
+throw new PuppuTekstiException("Ongelma tietokantahaussa.");
 }
 
 else {
