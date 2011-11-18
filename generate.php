@@ -14,7 +14,7 @@ $virke = new Puppu();
 
 if ($radio == "virke") {
 
-echo $virke->virke($varitys);
+	echo $virke->virke($varitys);
 
 }
 
@@ -22,35 +22,35 @@ echo $virke->virke($varitys);
 
 elseif ($radio == "kappale" && is_numeric($virkkeet)) {
 
-$lkm = $virkkeet;
+	$lkm = $virkkeet;
 
-$kappale = $virke->kappale($lkm, $varitys);
-echo $kappale;
+	$kappale = $virke->kappale($lkm, $varitys);
+	echo $kappale;
 
 }
 
 elseif ($radio == "teksti" && is_numeric($kappaleet)) {
 
-$kpl = $kappaleet;
-$lkm = $virkkeet;
+	$kpl = $kappaleet;
+	$lkm = $virkkeet;
 
-if ($random == "true") {
+	if ($random == "true") {
 
-    $teksti = $virke->teksti($kpl, true, $varitys);
-    echo $teksti;
+		$teksti = $virke->teksti($kpl, true, $varitys);
+		echo $teksti;
 	}
 
-elseif ($random == "undefined") {
+	elseif ($random == "undefined") {
 
-    $teksti = $virke->teksti($kpl, false, $varitys);
-    echo $teksti;
+		$teksti = $virke->teksti($kpl, false, $varitys);
+		echo $teksti;
 	}
 
 }
 
 else {
 
-echo "Tapahtui mystinen virhe.";
+	echo "Tapahtui mystinen virhe.";
 
 }
 
